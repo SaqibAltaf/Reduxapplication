@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import propTypes from 'prop-types';
+import {addPost} from './../actions/postAction'
 
 class AddPosts extends React.Component {
   constructor(props){
@@ -21,13 +24,7 @@ class AddPosts extends React.Component {
             title: this.state.body,
             body: this.state.body
         }
-        fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        }).then(res => res.json()).then(data => console.log(data))
+     this.props.addPost(body)
     }
   render() {
     return(
@@ -51,4 +48,8 @@ class AddPosts extends React.Component {
   }
 }
 
-export default AddPosts;
+AddPosts.propTypes ={
+    addPost : propTypes.func.isRequired,
+}
+
+export default connect(null, {addPost})(AddPosts);

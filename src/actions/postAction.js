@@ -9,3 +9,19 @@ export const fetchPosts = () => dispatch =>{
           })
       })
 }
+
+export const addPost = (body) => dispatch =>{
+    console.log('fetching')
+    fetch('https://jsonplaceholder.typicode.com/posts',{
+    method : 'POST',
+    headers : {
+        'content-type': 'application/json'
+    },
+    body : JSON.stringify(body)
+    }).then(res => res.json()).then(data => {
+          dispatch({
+              type : NEW_POSTS,
+              payload : data
+          })
+      })
+}

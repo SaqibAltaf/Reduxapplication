@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchPosts} from './../actions/postAction';
 
@@ -11,6 +12,12 @@ class Posts extends React.Component {
   }
   componentDidMount(){
     this.props.fetchPosts();
+  }
+  componentWillReceiveProps(nextprops){
+    if(nextprops.post){
+      console.log("added")
+    }
+
   }
   render() {
     return(
@@ -39,8 +46,14 @@ class Posts extends React.Component {
   }
 }
 
+Posts.propTypes = {
+  fetchPosts : propTypes.func.isRequired,
+  posts : propTypes.array.isRequired,
+  post : propTypes.object
+}
 const mapStateToProps = state =>({
   posts : state.posts.items,
+  post : state.posts.item
 })
 
 export default connect(mapStateToProps, {fetchPosts})(Posts);
